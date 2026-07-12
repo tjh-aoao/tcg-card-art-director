@@ -1,0 +1,28 @@
+# Local and OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local generated artifacts
+*.log
+*.tmp
+*.bak
+
+# Private source materials and bulky exports
+*.docx
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.zip
+
+# Local Codex/workspace state
+.codex/
+codex-clipboard-*

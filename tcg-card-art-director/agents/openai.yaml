@@ -1,0 +1,7 @@
+interface:
+  display_name: "TCG Card Art Director"
+  short_description: "Director-led TCG card art and prompt design."
+  default_prompt: "Use $tcg-card-art-director to run a director-led card art department for my theme, with visual DNA, differentiated card prompts, and generation review."
+
+policy:
+  allow_implicit_invocation: true
