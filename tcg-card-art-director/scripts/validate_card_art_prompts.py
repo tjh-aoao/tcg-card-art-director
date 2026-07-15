@@ -27,6 +27,7 @@ FORBIDDEN_PATTERNS = [
     (r"\bZone War\b", "project-internal English name"),
     (r"\bRush Duel\b|\bYu-Gi-Oh\b|\bMagic: The Gathering\b|\bPokemon\b", "third-party named card-game style"),
     (r"\bmasterpiece\b|\bbest quality\b|\bultra-detailed\b|\bepic\b|\bstunning\b|\bgorgeous\b", "vague prestige word"),
+    (r"\bfeminine-looking\b|\bwoman-like\b|\bgirl-like\b|\bgirlish\b|\blike a girl\b|\blike a woman\b|\bfemboy\b|\btrap\b", "gender-comparison shorthand"),
 ]
 
 DEFAULT_INTERNAL_TERMS = [

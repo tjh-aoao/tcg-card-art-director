@@ -53,6 +53,8 @@ Use visible design before mood words. A useful direction must say what is on scr
 
 Prefer concrete nouns and verbs over ornate adjectives. Do not use prestige words such as "epic", "gorgeous", "stunning", "masterpiece", "best quality", or "ultra-detailed" when they replace useful visual information.
 
+Do not use identity-comparison labels as prompt shortcuts. Convert them into visible features instead: soft facial lines, narrow jaw, slim frame, narrow shoulders, flat chest, long hair, loose robe collar, bare feet, calm posture, etc. The prompt should describe what can be drawn, not the social comparison.
+
 Default card art should feel like a playable card appearing, attacking, defending, transforming, or activating an effect, not a quiet story illustration.
 
 ## Reference Routing
@@ -107,6 +109,7 @@ Use the smallest output that satisfies the user:
 - Do not accept neutral category labels as the final idea. "Mechanical angel", "forest spirit", "fungus mage", and "flying adventurer" are starting points, not art direction.
 - Do not let multi-agent simulation fragment taste. The Creative Director judgment is the source of truth.
 - Do not repair a weak concept by adding adjectives to prompts. Return to the Creative Director, Visual DNA, or Single Card Director stage.
+- Do not put gender-comparison shortcuts in final English prompts. Use concrete anatomy, hairstyle, clothing, posture, and silhouette details instead.
 - Do not default to gray-pink, beige, old-paper, low-saturation, or evenly muted palettes unless requested.
 - Do not fill the background evenly with small branches, leaves, rubble, wires, smoke, spores, particles, or texture.
 - Do not place model parameters such as `--ar`, `--v`, `--s`, `--raw`, `--style`, `--sref`, or `--oref` in the final prompt line unless the user explicitly asks for a full MJ command.

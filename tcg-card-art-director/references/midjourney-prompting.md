@@ -32,6 +32,7 @@ Before writing the final prompt, expand the user's card concept through this rea
    - Describe action as a verb plus object: raising a shield, loading a rifle, pulling a wounded ally up, planting roots, swapping positions, firing a flare.
    - Push subject readability through large shape blocks: bigger hair mass, larger leaf crown, larger cloak, larger shoulder armor, bigger weapon head, brighter core, larger eye highlights, or a cleaner head silhouette.
    - For cute or mascot-like subjects, make the silhouette toy-like: compact body, oversized head or crown, simple limb shapes, large eyes, one clear prop, and a single readable pose.
+   - Do not use identity-comparison shortcuts to describe gender, temperament, or social reading. These phrases pollute generation and are less controllable than visible features. Rewrite them as drawable traits: soft facial lines, narrow jaw, slim frame, narrow shoulders, flat chest, long hair, loose collar, wide sleeves, bare feet, reserved expression, precise hand pose.
 
 3. 环境构建与氛围
    - Describe a concrete place, not a generic background.
@@ -107,6 +108,8 @@ Do not put model parameters such as `--ar`, `--raw`, `--s`, `--c`, `--v`, `--sty
 
 Do not put project-internal proper nouns, card names, character names, faction names, weapon form names, or rules keywords into the final prompt when they are not broadly understandable visual words. Translate them into visible generic descriptors instead.
 
+Do not put social-comparison labels into the final prompt. Write the visual evidence instead: `young adult male with soft facial lines, narrow jaw, slim flat chest, narrow shoulders, long black hair, loose robe collar, wide sleeves, bare feet`.
+
 Examples:
 - Use "white armored mechanical angelic vanguard with two yellow energy wings" instead of a character name.
 - Use "paired compact six-flanged mace weapons that unfold into light blades" instead of an internal weapon name.
@@ -155,6 +158,7 @@ Before finalizing a prompt, check whether it answers these questions:
 
 If the prompt mostly answers with mood words, rewrite it.
 If the prompt produces gray-pink, beige, old-paper, or low-contrast output by default, rewrite the palette with higher saturation and stronger value separation.
+If the prompt uses a gender-comparison phrase to do the job of actual design description, rewrite it into body shape, facial structure, clothing, hair, posture, and props.
 
 ## Zone War Defaults
 
