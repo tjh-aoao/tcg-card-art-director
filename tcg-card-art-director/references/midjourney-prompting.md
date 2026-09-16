@@ -14,14 +14,12 @@ Use "clear subject description" as the first rule. The prompt should state what 
 
 ## Visual Reasoning Before Prompting
 
-Before writing the final prompt, expand the user's card concept through this reasoning structure. Output this in Chinese for Zone War deliverables.
+Before writing the final prompt, use this structure internally to select visible content. Ordinary delivery is only one English prompt and its Chinese translation. Show the Chinese reasoning block only when the user requests an explanation or full brief.
 
-1. 艺术风格与媒介
-   - Decide the medium from context: fantasy trading card illustration, stylized storybook character concept art, anime-realistic illustration, painterly card art, photorealistic, or 3D render.
-   - For TCG card art, default to illustration or stylized concept art, not generic "photorealistic" or raw "8k".
-   - If using a reference image, extract transferable variables such as linework, silhouette, color, lighting, composition, and large shape blocks. Do not copy the exact character, pose, mask, costume, logo, or signature motif.
-   - Keep style terms optional and short. Use them only to define medium or line/render treatment, not as a required prompt layer.
-   - For playable card art, prefer high saturation, high contrast, clean cel-shaded or painted-card finish, strong outline, and clear rim light. Avoid defaulting to gray-pink, beige, old-paper, or low-contrast storybook palettes unless requested.
+1. 用户管理的情绪板与风格参考
+   - Do not set medium, rendering treatment, art style, or mood inside the ordinary prompt. The user controls them with their own Midjourney moodboard.
+   - Translate only the card's visible content into the prompt: subject, anatomy or shape, costume or natural covering, props, action, scene hierarchy, camera, lighting, color relationships, and card-frame readability.
+   - If the user provides a moodboard and explicitly asks for a full MJ command, keep its reference parameter separate from the content prompt. Do not describe it as another game's style or copy characters, poses, costumes, logos, or signature motifs.
 
 2. 画面主体深度刻画
    - Specify visible identity: body shape, face, eyes, hairstyle or equivalent creature features, costume or natural covering, held objects, and large readable design blocks.
@@ -43,17 +41,17 @@ Before writing the final prompt, expand the user's card concept through this rea
    - For green or forest themes, use a green energy stage or simple root platform behind the subject instead of dense tree-branch detail unless the card specifically needs a forest environment.
 
 4. 专业摄影语言 / 构图镜头
-   - Choose a camera and composition that fit the card job: macro low-angle, vertical battlefield mid-shot, heroic low-angle, over-the-shoulder, wide 24mm environment shot, 85mm portrait-like focus.
+   - Prefer medium-wide or wide compositions. For character cards, describe a full-body view with feet, key props and open action space inside the frame. For trace cards, describe the distance between participants, event and setting so the story remains legible. Choose the camera angle independently; a low angle does not require a close crop.
    - State card-frame readability as physical composition, not a vague request: "main face and weapon in upper half", "lower quarter low-detail", "formation nodes not behind text area".
-   - Use direct camera words: front view, side view, low angle, high angle, over-the-shoulder, close-up, mid-shot, wide shot, diagonal action pose.
+   - Use direct framing words such as "medium-wide full-body view", "wide side view", "entire figure inside the frame", and "open space ahead of the leap". Avoid contradictory instructions such as "full body" together with "waist-up", or "wide shot" together with "face fills the frame". Use close-ups only for a specific visual need or user request.
    - Prefer card-entry or activation moments over quiet illustration moments: the subject appears, lands, raises a weapon, releases energy, blocks, fires, commands, transforms, or activates a core.
    - Require visible separation: strong outer contour line, rim light on shoulders/head/weapon, bright eyes or core highlights, and a background value that does not merge with the subject.
 
-Required reasoning output:
+Optional reasoning output for a requested explanation or full brief:
 
 ```markdown
 ### 构思与推导
-- [风格定位]：
+- [画面任务]：
 - [主体特征]：
 - [服饰/纹样/物品]：
 - [动作事件]：
@@ -87,10 +85,20 @@ Recommended order:
 
 Do not add separate Material, Style, or Quality layers by default:
 - Material: include only when it is a required visible identity cue, such as white ceramic armor, bark skin, glass vial, bronze gear, or paper wing.
-- Style: include only as a short medium/render phrase when needed, such as `clean anime card illustration` or `painted trading card illustration`.
+- Style: omit by default. The user controls style through their own moodboard; include a reference parameter only when they explicitly request a full MJ command.
 - Quality: do not use prestige words such as `masterpiece`, `best quality`, or `ultra-detailed`.
 
-For TCG card art, never rely on tiny text inside the image. Add negative text controls by default.
+For TCG card art, never rely on tiny text inside the image. A brief "no readable text" cue may be used; provide a separate negative prompt only when requested.
+
+## Card-Type Framing Rules
+
+Use these as prompt-composition instructions, not as a request to reproduce another game's style or visual identity.
+
+Apply "Single-Card Picture Control" in `zone-war-art-bible.md` before encoding the composition. Front-load the character's concrete appearance and one visible action. Give necessary effect cues a subordinate position and contrast; leave out secondary rules clauses that introduce another time, action, or focal subject. Translate mechanics into visible shapes and spatial relationships, not terms such as "resonance spirit" or "extra energy cost" alone. Do not depict a tax as a complete stop or a hand return as revival.
+
+- For **域主、普通域灵、共鸣域灵**, front-load the character or creature. Describe one dominant figure, its face/head, large silhouette block, prop, and active action before the setting. Ask for a clean energy stage or only one to three supporting domain cues; keep the background lower-detail and lower-contrast than the subject.
+- For **共鸣域灵**, describe nodes and formation geometry as framing or orbiting evidence around the figure. Do not make a floating diagram the main read.
+- For **通常域痕、结界域痕**, front-load the event and its consequence. Prompt a visible trigger, central change, and affected place or secondary reaction, so the image reads as a small story. The scene can contain more environment than a character card, but must retain one decisive focal action.
 
 ## Natural Zone War Prompt Shape
 
@@ -121,7 +129,7 @@ Do not use Midjourney multi-prompts or text weights such as `::` when the user's
 
 Do not automatically include `Photorealistic` or `8k` for TCG prompts. Use them only when the requested medium is photography or photoreal CG.
 
-Do not automatically include vague quality words such as `masterpiece`, `best quality`, `ultra-detailed`, `epic`, `stunning`, or `gorgeous`. Use visual finish words only when they say something concrete, such as `clean ink linework`, `flat cel shading`, `painted card illustration`, `hard ceramic armor`, or `matte bark texture`.
+Do not automatically include vague quality words such as `masterpiece`, `best quality`, `ultra-detailed`, `epic`, `stunning`, or `gorgeous`. Physical surface descriptions may clarify identity; linework, shading, medium, and other rendering treatments remain controlled by the user's moodboard unless requested.
 
 ## Chinese Translation Under Prompts
 
@@ -177,7 +185,7 @@ Use `--q 2` for final detail tests only. Do not use `--q 4` with `--oref`.
 
 ### Style Reference
 
-Use `--sref` when the user has an approved series style image or moodboard. It transfers visual style more than content.
+Use `--sref` only when the user has an approved moodboard reference and explicitly asks for a full MJ command. It transfers visual style more than content; it is not part of the ordinary content prompt.
 
 Guidance:
 - `--sw 50-100`: subtle influence.
@@ -208,7 +216,9 @@ When using a user-provided reference image:
 
 ## Prompt Variants
 
-Always provide three MJ variants when the user asks for MJ output:
+Provide one clean MJ prompt by default. Provide three controlled variants only when the user explicitly asks for variants, exploration, or a generation batch.
+
+When variants are requested, preserve the same fixed subject anchors across the batch and state the one primary variable each version tests. Once a candidate is selected, use that candidate's seed or reference asset when available and revise only named failures.
 
 1. Faithful Production
    - Lower stylize, clear subject, safer composition.
@@ -224,7 +234,7 @@ Always provide three MJ variants when the user asks for MJ output:
 
 ## TCG Composition Notes
 
-Midjourney does not reliably obey "leave space for card frame." Describe actual empty or low-detail regions:
+Describe required card-frame clearance as physical empty or low-detail regions, using the actual illustration window when known. The following are optional examples, not a requirement to darken or empty the bottom of every image:
 
 - "main subject centered above the lower third, lower quarter kept low-detail and darker"
 - "face and weapon in the upper half, clean atmospheric gradient behind lower text area"
@@ -259,6 +269,8 @@ After a generation, diagnose before rewriting:
 - Unexpected: what appeared that should not be there?
 - Hypothesis: which phrase or parameter likely caused it?
 
+Record the selected image, seed, or reference asset when the tool supports it. This is the reproducibility record for the next pass, not a claim that the image is final.
+
 Action guide:
 
 | Problem | Next Action |
@@ -275,7 +287,7 @@ Soft limit: if three prompt attempts do not converge, return to the art brief an
 
 ## Output Format
 
-For each MJ prompt, include:
+By default, deliver only one clean English prompt and its Chinese translation. The fields below apply only to a requested expanded brief or iteration report; parameters require an explicit request:
 
 - Visual Reasoning: the Chinese `构思与推导` block above.
 - Intent: what this variant tests.

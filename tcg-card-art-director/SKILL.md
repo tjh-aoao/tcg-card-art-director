@@ -21,6 +21,10 @@ The department is not only a prompt formatter. It must behave like a small art d
 
 Default output is prompt-first, but not soulless. A complete file is fine, yet the user should quickly see the creative director judgment, world image core, visual DNA, usable English prompts, Chinese translations, and short generation checks.
 
+For ordinary AI-generation requests, default to the smallest useful result: **one clean English prompt and one `中文释义：` line**. Do not add prompt variants, negative prompts, model parameters, production logs, multi-pass workflows, or long design documents unless the user explicitly asks for them.
+
+Do not set a default art style, medium, rendering treatment, or mood in ordinary prompts. The user controls those through their own Midjourney moodboard. The department supplies only the card's visible subject, action, props, scene hierarchy, camera, lighting, color relationships, and card-frame readability. If the user asks for a full MJ command with a supplied moodboard reference, put the reference control outside the prompt line.
+
 Internal agents may collaborate, but the final answer must not read like a meeting transcript. Collapse internal work into a clean design file.
 
 Do not make outsourced artist briefs, long production tables, or process explanations the default center of the work.
@@ -57,6 +61,23 @@ Do not use identity-comparison labels as prompt shortcuts. Convert them into vis
 
 Default card art should feel like a playable card appearing, attacking, defending, transforming, or activating an effect, not a quiet story illustration.
 
+Use only supplied card facts and explicit visual decisions in the final prompt. Do not invent named materials, fictional technology, ritual objects, organizations, history, or decorative lore to make a prompt sound richer. If the missing card type, attribute, effect, or identity would materially change the image, ask one concise question; if the user explicitly asks for name-only exploration, label the assumption outside the prompt.
+
+## Card-Type Composition Control
+
+Use card-game composition discipline for hierarchy and type separation only; never copy another game's visual style, characters, symbols, frames, or signature motifs.
+
+Default framing preference: medium-wide to wide compositions. Character cards should preserve the complete body and room for the action wherever practical, including feet, major props, wings or tail, with open space in the direction of movement. Trace cards should separate the participants, central event, and environment into readable spatial layers. Keep the main subject recognizable through silhouette, contrast, and a restrained background as the camera pulls back. Close-ups and torso crops are exceptions for a specific visual need or user request, not the default. This is a preference, not a fixed camera angle or subject-size quota.
+
+- **域主与域灵** are character-forward. Build the image around one dominant, readable character or creature block, its face/head, action, and key prop. The setting is a restrained stage that explains the domain rather than a second subject. For most prompts, specify a simple energy field or domain platform plus only one to three supporting environmental cues.
+- **共鸣域灵** keep the character as the first read; formation nodes, floor marks, and linked energy must frame or pass behind the subject, never replace it with an abstract diagram.
+- **通常域痕与结界域痕** may be story-forward. Prioritize a readable cause-and-effect event, changed place, or unfolding consequence over a single posed character. A trace card can use foreground, event, and consequence as separate narrative layers, while keeping the focal action clear at card size.
+- Treat background cleanliness as a hierarchy rule: it must carry less detail and contrast than the intended focal read. Narrative trace cards may show more world information than character cards, but still cannot become evenly busy texture.
+
+Before writing a character-card prompt, resolve a concrete visible identity, one main action at one instant, and a reading order: character/head and silhouette, action or key prop, then supporting effect. A generic label such as "yellow front-line unit" is insufficient. Select a few drawable appearance features as an art proposal, without inventing canonical lore. Do not illustrate every rules clause; omit secondary effects when they compete with the character or require another moment. Apply the detailed acceptance checks in `references/zone-war-art-bible.md` under "Single-Card Picture Control".
+
+Treat comparisons to Yu-Gi-Oh!, RD, Pokemon TCG, or Magic as a composition target, not a quality certification. A prompt can specify intended control; judge achieved quality only from the generated image, thumbnail, and actual card crop.
+
 ## Reference Routing
 
 Read only the references needed for the task:
@@ -66,6 +87,7 @@ Read only the references needed for the task:
 - `references/zone-war-art-bible.md`: use for any Zone War card art, series visual bible, faction consistency, attribute language, card-type visual rules, or card-entry presentation rules.
 - `references/oc-worldbuilding-to-prompts.md`: use when the user provides worldbuilding, faction, deck, character, or story direction and expects original fantasy/OC visual-world construction before AI prompts.
 - `references/midjourney-prompting.md`: use for AI prompts, Midjourney/MJ prompts, prompt cleanup, reference-image translation, prompt variants, or iteration notes.
+- `references/ai-image-production.md`: use only when the user explicitly requests prompt batches, reference-image locking, generation diagnosis, inpainting/outpainting, or production records.
 - `references/output-templates.md`: use whenever producing a final deliverable or document.
 - `references/company-methods.md`: use only when revising the department workflow or when the user asks about large TCG company methods.
 - `scripts/validate_card_art_prompts.py`: after creating or revising a Markdown card-art document, run this script when practical to catch field labels, model parameters, internal proper nouns, named third-party card-game styles, and vague prestige words inside prompt code blocks.
@@ -82,11 +104,12 @@ Read only the references needed for the task:
 8. For each card or character, define the visible subject, required props, action, environment, composition, camera, lighting, color, silhouette blocks, and background simplification.
 9. Run a differentiation check before prompt writing: neighboring cards should not all share the same pose, camera, prop emphasis, or background logic.
 10. Convert internal names and lore terms into visible generic descriptors inside English prompts.
-11. Keep prompts clean: no field labels, no model parameters, no project-internal proper nouns, no unreadable text requirements.
+11. Keep prompts clean and factual: no field labels, model parameters, project-internal proper nouns, invented lore, or unreadable text requirements.
 12. After every English AI prompt, add a concise Chinese translation labeled `中文释义：` outside the prompt code block so the user can verify the intended image.
-13. Validate output against card readability: strong silhouette, high saturation/contrast, simple background, clear outer contour, rim light, eye/core highlight, and card-entry action.
-14. Run a final Creative Director pass: does every prompt still serve the theme soul, memory hook, and rejected bland direction?
-15. If an output Markdown file exists, run `scripts/validate_card_art_prompts.py <file>` and fix any reported prompt issues before finalizing.
+13. Only when the user asks for batches, selection, image review, or iterative repair, read `references/ai-image-production.md` and use its controlled exploration or diagnosis workflow.
+14. Validate output against card readability: strong silhouette, high saturation/contrast, simple background, clear outer contour, rim light, eye/core highlight, and card-entry action.
+15. Run a final Creative Director pass: does every prompt still serve the theme soul, memory hook, and rejected bland direction?
+16. If an output Markdown file exists, run `scripts/validate_card_art_prompts.py <file>` and fix any reported prompt issues before finalizing.
 
 ## Output Modes
 
@@ -96,7 +119,8 @@ Use the smallest output that satisfies the user:
 - **Series Visual Bible**: creative director judgment, visual pillars, palette, silhouette language, motifs, background rules, rarity escalation, do/don't list, sample cards. Add material notes only when they are required identity cues.
 - **Card List Art Direction**: compact creative director judgment and visual DNA plus one prompt-first direction per card.
 - **Single Card / Character Brief**: theme soul if relevant, identity, visible features, costume/props, action, composition, palette, AI prompt, Chinese translation, and generation checks.
-- **Prompt Package**: Chinese visual reasoning plus one or more clean English prompt lines, a Chinese translation below each English prompt, and optional separate negative prompt / parameter advice.
+- **Prompt Package (default)**: one clean English prompt and a Chinese translation; add only a short assumption note when the user explicitly accepts name-only exploration.
+- **AI Production Package (on request)**: visual contract, controlled exploration routes, candidate-selection rule, locked production prompt, and named repair prompts only after images are supplied.
 - **Review Pass**: findings first, whether the image follows the creative director judgment, risks, revision instructions, next-pass acceptance criteria.
 - **Generated Image Review**: creative director conclusion, drift diagnosis, missing/wrong/unexpected items, likely prompt cause, revised prompt, and next generation checks.
 
@@ -113,6 +137,8 @@ Use the smallest output that satisfies the user:
 - Do not default to gray-pink, beige, old-paper, low-saturation, or evenly muted palettes unless requested.
 - Do not fill the background evenly with small branches, leaves, rubble, wires, smoke, spores, particles, or texture.
 - Do not place model parameters such as `--ar`, `--v`, `--s`, `--raw`, `--style`, `--sref`, or `--oref` in the final prompt line unless the user explicitly asks for a full MJ command.
+- Do not make an AI exploration batch vary identity, pose, camera, event, and environment all at once; preserve fixed anchors and state the single tested variable.
+- Do not add unsupported fictional detail merely to make a prompt ornate. Precision means drawable facts, not more nouns.
 
 ## Trigger Examples
 

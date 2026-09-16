@@ -2,6 +2,23 @@
 
 Use Chinese for Zone War project deliverables unless the user asks otherwise.
 
+## 默认：快速 AI 提示词
+
+Use this for an ordinary “给这张卡出 AI 提示词” request. Output only the following unless the user asks for more:
+
+````markdown
+```text
+{one clean English prompt made only of confirmed card facts and explicit visual choices}
+```
+中文释义：
+````
+
+Do not add style, medium, rendering-treatment, mood, variants, negative prompts, parameters, workflow tables, invented setting details, or production records by default. The user supplies style through their own MJ moodboard. If essential card facts are missing, ask one concise question; only use an assumption note when the user explicitly asks for name-only exploration.
+
+Before output, apply `zone-war-art-bible.md` → "Single-Card Picture Control": concrete character identity, one main action at one instant, a readable hierarchy, and faithful effect implications. This is an internal check, not an extra output section. An illustration may omit secondary effects; do not add extra figures or events just to cover every rules clause.
+
+Default to medium-wide or wide framing: character cards retain the full body and action clearance where practical; trace cards separate participants, event and environment in depth. Check that the main subject remains clear and that the prompt and Chinese translation agree on shot distance and crop.
+
 ## OC Worldbuilding Prompt File
 
 Use this as the default full-file shape when the user provides worldbuilding, faction, deck, or character direction and mainly wants AI image prompts.
@@ -111,6 +128,7 @@ Use this as the default full-file shape when the user provides worldbuilding, fa
 - 稀有度目标：
 - 游戏角色：
 - 当前生产状态：Concept / Sketch / Prompt / Outsource / Review / Final
+- 画面控制：角色主导（域主/域灵）/ 叙事主导（域痕）
 
 ## 2. 美术总监摘要
 {用 2-4 句话说明这张图必须让玩家看见什么。}
@@ -127,6 +145,7 @@ Use this as the default full-file shape when the user provides worldbuilding, fa
 - 主体位置：
 - 动势：
 - 前景/中景/背景：
+- 主次层级：角色卡中主体必须压过背景；域痕卡中事件必须压过环境细节
 - 卡框安全区：
 - 缩略图识别点：
 
@@ -146,19 +165,21 @@ Use this as the default full-file shape when the user provides worldbuilding, fa
 
 ## 7. AI 绘图 Prompt
 ### 构思与推导
-- [风格定位]：
+- [画面任务]：
 - [主体特征]：
 - [服饰/纹样/物品]：
 - [动作事件]：
 - [场景搭建]：
 - [视角构图]：
+- [画面控制]：角色主导 / 叙事主导；主体与背景的层级关系
 - [色调光影]：
 - [轮廓高光]：
 - [卡框安全]：
 
 ### Prompt Strategy
-- 媒介选择：
+- 情绪板/风格参考：由用户在 MJ 中控制；普通 Prompt 不写入
 - 主体识别优先级：
+- 画面控制：角色主导时主体、动作、关键道具优先；叙事主导时触发、变化、后果优先
 - 必须出现的外观特征：
 - 必须出现的服饰/纹样/物品：
 - 必须出现的动作：
@@ -170,6 +191,32 @@ Use this as the default full-file shape when the user provides worldbuilding, fa
 - 外轮廓/边缘光/眼睛或核心高光：
 - 参考图转译：
 - 生成模型注意事项：
+
+### AI 生图闭环（仅当用户明确要求多轮生图、选图或返修时使用）
+- 规则文本/版本状态：已确认可进正式图 / Draft 或 Test，仅作概念探索
+- 固定锚点：每轮都不能丢失的 3-5 个可见事实
+- 本轮只测试：轮廓 / 动作 / 镜头 / 事件 / 场景中的一项
+- 禁止偏移：错误卡类、错误规则暗示、背景抢主体、可读文字、外部 IP 视觉语言
+- 入选标准：缩略图第一读点、关键道具/事件、卡框安全区、系列一致性
+
+#### Pass A：构图探索
+| 路线 | 仅测试的变量 | 固定锚点 | 本轮验收点 | Prompt |
+| --- | --- | --- | --- | --- |
+| A | 轮廓/身份 | | | |
+| B | 动作/镜头 | | | |
+| C | 场景/事件 | | | |
+
+#### Pass B：入选图锁定与精修
+- 入选图/Seed/参考资产：
+- 该图被选中的原因：
+- 本轮只修：
+- 不可再改的锚点：
+
+#### Pass C：最终卡面 QA
+- 实际裁切/卡框检查：
+- 缩略图检查：
+- 导出文件名：
+- 最终 Prompt 与工具/模型记录：
 
 ### 通用 Positive Prompt
 ```text
@@ -238,11 +285,13 @@ Use this as the default full-file shape when the user provides worldbuilding, fa
 | 项目 | 通过标准 | 状态 | 备注 |
 | --- | --- | --- | --- |
 | 主体识别 | 缩略图能看清主角/事件 | 待审 | |
+| 画面层级 | 域主/域灵以角色为第一读点；域痕以事件因果为第一读点 | 待审 | |
 | 卡牌类型 | 不读文字也能猜到类型 | 待审 | |
 | 系列一致性 | 符合系列视觉支柱 | 待审 | |
 | 规则一致性 | 不暗示不存在的效果 | 待审 | |
 | 卡框安全 | 关键信息不被遮挡 | 待审 | |
 | 印刷可读 | 明暗和边缘足够清楚 | 待审 | |
+| AI 闭环 | 有固定锚点、受控变量、入选依据与最终资产记录 | 待审 | |
 | 原创安全 | 无第三方 IP/商标/真人肖像风险 | 待审 | |
 
 ## 10. 返修建议
@@ -294,6 +343,11 @@ Use this when the user provides generated images and asks what drifted or how to
 - 意外：
 - 可能原因：
 
+## 本轮控制变量
+- 本轮只修：
+- 必须保留的固定锚点：
+- 不应重写的部分：
+
 ## 修改方向
 - 视觉设定要改：
 - Prompt 要改：
@@ -308,4 +362,8 @@ Use this when the user provides generated images and asks what drifted or how to
 
 ## 下一轮看图重点
 - 
+
+## 资产记录
+- 入选图/Seed/参考资产：
+- 最终 Prompt 与工具/模型：
 ````
